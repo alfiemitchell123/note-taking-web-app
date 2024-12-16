@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES6", // You might consider using "ES2015" for clarity
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true, // Ensures consistent casing in file names
+    "noImplicitReturns": true, // Ensures all code paths in a function return a value
+    "noFallthroughCasesInSwitch": true, // Ensures switch statements have a default case
+    "resolveJsonModule": true, // Allows importing JSON files
+    "moduleResolution": "node", // Ensures module resolution is consistent with Node.js
+    "allowSyntheticDefaultImports": true // Allows default imports from modules with no default export
   },
   "include": [
     "src/**/*.ts",
@@ -14,6 +20,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "coverage"
   ]
 }
