@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 const app = express();
 app.use(express.json());
 
-db.connect((err: Error | null) => { // Connect to the database
+db.connect((err: Error | null) => {
     if (err) throw err;
     console.log("Connected to MySQL database!");
 });
