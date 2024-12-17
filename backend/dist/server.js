@@ -17,5 +17,5 @@ db_1.default.connect((err) => {
 app.get('/', (req, res) => {
     res.send('Welcome to the Note Taking App API!');
 });
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server is running on http://localhost${PORT}`));
+const PORT = process.env.DB_PORT || 3306;
+app.listen(PORT, () => console.log(`Server is running on http://db:${PORT}`));

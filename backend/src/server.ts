@@ -21,8 +21,8 @@ app.get('/', (req: Request, res: Response) => {
 // Mount the users router
 app.use('/users', usersRouter);
 
-const PORT = process.env.PORT || 3000;
-const server = app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+const PORT = process.env.DB_PORT || 3000;
+const server = app.listen(PORT, () => console.log(`Server is running on http://db:${PORT}`));
 
 // Gracefully shutdown the server when needed
 export const closeServer = () => {
