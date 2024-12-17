@@ -58,9 +58,10 @@ jobs:
             # Run Jest tests
             - name: Run Jest tests
               env:
-                  MYSQL_USER: admin
-                  MYSQL_ROOT_PASSWORD: luxor
-                  MYSQL_DATABASE: note_taking_app
+                  DB_HOST: localhost
+                  DB_USER: admin
+                  DB_PASSWORD: luxor
+                  DB_NAME: note_taking_app
               run: |
                   npm run test -- --coverage
 
