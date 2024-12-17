@@ -55,16 +55,25 @@ jobs:
               run: |
                 docker compose -f docker-compose.yml up -d --build
 
+            # Wait for MySQL to be ready
+            - name: Wait for MySQL to be ready
+              run: |
+                until mysql -h 127.0.0.1 -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }} -e "show databases"; do
+                  echo "Waiting for MySQL..."
+                  sleep 2
+                done
+
             # Run Jest tests
             - name: Run Jest tests
               env:
-                  MYSQL_USER: admin
-                  MYSQL_ROOT_PASSWORD: luxor
-                  MYSQL_DATABASE: note_taking_app
+                DB_HOST: ${{ secrets.DB_HOST }}
+                DB_USER: ${{ secrets.DB_USER }}
+                DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+                DB_NAME: ${{ secrets.DB_NAME }}
               run: |
                   npm run test -- --coverage
 
             # Stop Docker Compose services
             - name: Stop Docker Compose services
               run: |
-                  docker-compose down --volumes --rmi all --remove-orphans
+                  docker compose down --volumes --rmi all --remove-orphans
