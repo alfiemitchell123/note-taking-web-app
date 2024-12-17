@@ -3,25 +3,23 @@ import app from '../backend/src/server';
 import db from '../backend/src/db';
 import { faker } from '@faker-js/faker';
 import { Server } from 'http';
+import { AddressInfo } from 'net';
+import { closeServer } from '../backend/src/server';
 
 let server: Server;
+let serverPort: number;
 
 beforeAll(async () => {
-    const port = 0;
-    server = app.listen(port, () => {
-        console.log(`Server is running on port ${port}`);
+    server = app.listen(0, () => {
+        serverPort = (server.address() as AddressInfo).port;  // Capture dynamically assigned port
+        console.log(`Server is running on http://localhost:${serverPort}`);
     });
 });
 
-afterAll(async () => {
-    await new Promise<void>((resolve) => {
-        server.close(() => {
-            resolve();
-        });
-    });
-    db.end();
+afterAll(() => {
+    server.close();
+    closeServer();  // This will stop the server and close the DB connection
 });
-
 describe('POST /users', () => {
     test('should add a user', async () => {
         const user = {

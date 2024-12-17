@@ -22,6 +22,13 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/users', usersRouter);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
+
+// Gracefully shutdown the server when needed
+export const closeServer = () => {
+    server.close(() => {
+        db.end();
+    });
+};
 
 export default app;

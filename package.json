@@ -4,7 +4,7 @@
   "description": "Frontend Mentor - Note Taking App",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "lint": "eslint ."
   },
   "repository": {
@@ -39,6 +39,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.3.0",
     "@types/express": "^5.0.0",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mysql2": "^3.11.5"
   }
 }
