@@ -18,6 +18,8 @@ jobs:
                 env:
                     MYSQL_ROOT_PASSWORD: luxor
                     MYSQL_DATABASE: note_taking_app
+                    MYSQL_USER: admin
+                    MYSQL_PASSWORD: luxor
                 ports:
                     - 3306:3306
                 options: >-
@@ -54,14 +56,6 @@ jobs:
             - name: Build and start services using Docker Compose
               run: |
                 docker compose -f docker-compose.yml up -d --build
-
-            # Wait for MySQL to be ready
-            - name: Wait for MySQL to be ready
-              run: |
-                until mysql -h 127.0.0.1 -u ${{ secrets.DB_USER }} -p${{ secrets.DB_PASSWORD }} -e "show databases"; do
-                  echo "Waiting for MySQL..."
-                  sleep 2
-                done
 
             # Run Jest tests
             - name: Run Jest tests

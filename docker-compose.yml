@@ -4,8 +4,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: luxor
       MYSQL_DATABASE: note_taking_app
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: luxor
+    ports:
+      - 3306:3306
     networks:
       - mynetwork
 
