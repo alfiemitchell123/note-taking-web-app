@@ -65,6 +65,10 @@ jobs:
                 DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
                 DB_NAME: ${{ secrets.DB_NAME }}
               run: |
+                  echo "DB_HOST=${DB_HOST}" >> $GITHUB_ENV
+                  echo "DB_USER=${DB_USER}" >> $GITHUB_ENV
+                  echo "DB_PASSWORD=${DB_PASSWORD}" >> $GITHUB_ENV
+                  echo "DB_NAME=${DB_NAME}" >> $GITHUB_ENV
                   npm run test -- --coverage
 
             # Stop Docker Compose services
