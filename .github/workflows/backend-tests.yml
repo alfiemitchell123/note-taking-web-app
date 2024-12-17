@@ -56,12 +56,8 @@ jobs:
             - name: Build and start services using Docker Compose
               run: |
                 docker compose -f docker-compose.yml up -d --build
-
-            # Wait for MySQL to be ready
-            - name: Wait for MySQL to be ready
-              run: |
-                docker compose exec mysql mysqladmin --user=root --password=$MYSQL_ROOT_PASSWORD --host=localhost --silent --wait=30 ping
-
+                docker-compose exec db mysql -u root -p$MYSQL_ROOT_PASSWORD -e "SHOW TABLES;"
+                
             # Run Jest tests
             - name: Run Jest tests
               env:
