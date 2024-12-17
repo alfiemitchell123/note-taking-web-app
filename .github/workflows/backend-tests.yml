@@ -56,7 +56,7 @@ jobs:
             - name: Build and start services using Docker Compose
               run: |
                 docker compose -f docker-compose.yml up -d --build
-                docker compose exec db mysql -u root -pluxor -e "SHOW TABLES;"
+                docker compose exec db mysql -u root -p$MYSQL_ROOT_PASSWORD -e "SHOW TABLES;"
 
             # Run Jest tests
             - name: Run Jest tests
