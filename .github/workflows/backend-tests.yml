@@ -60,7 +60,7 @@ jobs:
             # Wait for MySQL to be ready
             - name: Wait for MySQL to be ready
               run: |
-              docker compose exec mysql mysqladmin --user=root --password=$MYSQL_ROOT_PASSWORD --host=localhost --silent --wait=30 ping
+                docker compose exec mysql mysqladmin --user=root --password=$MYSQL_ROOT_PASSWORD --host=localhost --silent --wait=30 ping
 
             # Run Jest tests
             - name: Run Jest tests
