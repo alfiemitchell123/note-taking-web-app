@@ -1,9 +1,8 @@
 import dotenv from 'dotenv';
 import path from 'path';
+import mysql, { Connection } from 'mysql2';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
-import mysql, { Connection } from 'mysql2';
 
 if (!process.env.DB_HOST || !process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_NAME) {
     throw new Error('Missing required database environment variables');

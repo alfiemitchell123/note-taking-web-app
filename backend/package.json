@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "test": "jest --detectOpenHandles",
+    "lint": "eslint .",
     "build": "tsc",
-    "dev": "nodemon --exec ts-node src/server.ts"
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",

@@ -13,11 +13,13 @@ jobs:
         runs-on: ubuntu-latest
 
         services:
-            mysql:
+            db:
                 image: mysql:8.0
                 env:
                     MYSQL_ROOT_PASSWORD: luxor
                     MYSQL_DATABASE: note_taking_app
+                    MYSQL_USER: admin
+                    MYSQL_PASSWORD: luxor
                 ports:
                     - 3306:3306
                 options: >-
@@ -53,19 +55,24 @@ jobs:
             # Build and start services using Docker Compose
             - name: Build and start services using Docker Compose
               run: |
-                docker-compose -f docker-compose.yml up -d --build
+                docker compose -f docker-compose.yml up -d --build
+                docker compose exec db mysql -u root -p$MYSQL_ROOT_PASSWORD -e "SHOW TABLES IN note_taking_app;"
 
             # Run Jest tests
             - name: Run Jest tests
               env:
-                  DB_HOST: localhost
-                  DB_USER: admin
-                  DB_PASSWORD: luxor
-                  DB_NAME: note_taking_app
+                DB_HOST: ${{ vars.DB_HOST }}
+                DB_USER: ${{ vars.DB_USER }}
+                DB_PASSWORD: ${{ vars.DB_PASSWORD }}
+                DB_NAME: ${{ vars.DB_NAME }}
               run: |
+                  echo "DB_HOST=${DB_HOST}" >> $GITHUB_ENV
+                  echo "DB_USER=${DB_USER}" >> $GITHUB_ENV
+                  echo "DB_PASSWORD=${DB_PASSWORD}" >> $GITHUB_ENV
+                  echo "DB_NAME=${DB_NAME}" >> $GITHUB_ENV
                   npm run test -- --coverage
 
             # Stop Docker Compose services
             - name: Stop Docker Compose services
               run: |
-                  docker-compose down --volumes --rmi all --remove-orphans
+                  docker compose down --volumes --rmi all --remove-orphans

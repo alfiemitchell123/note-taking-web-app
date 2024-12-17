@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: luxor
+      MYSQL_DATABASE: note_taking_app
+    ports:
+      - "3307:3306"
+    networks:
+      - mynetwork
+
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+
+networks:
+  mynetwork:
+    driver: bridge
